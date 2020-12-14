@@ -3,12 +3,12 @@
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation; either version 2 of the License, or
 #  (at your option) any later version.
-#  
+#
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
-#  
+#
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -16,28 +16,21 @@
 #
 #  Author: Mauro Soria
 
-import threading
+from lib.reports import *
 
 
-class ReportManager(object):
+class SimpleReport(TailableFileBaseReport):
 
-    def __init__(self):
-        self.outputs = []
-        self.lock = threading.Lock()
+    def generate(self):
+        result = ""
 
-    def addOutput(self, output):
-        self.outputs.append(output)
+        for path, _, _ in self.getPathIterator():
 
-    def addPath(self, path, status, response):
-        with self.lock:
-            for output in self.outputs:
-                output.addPath(path, status, response)
+            result += "{0}://{1}:{2}/".format(self.protocol, self.host, self.port)
+            result += (
+                "{0}\n".format(path)
+                if self.basePath == ""
+                else "{0}/{1}\n".format(self.basePath, path)
+            )
 
-    def save(self):
-        with self.lock:
-            for output in self.outputs:
-                output.save()
-
-    def close(self):
-        for output in self.outputs:
-            output.close()
+        return result
