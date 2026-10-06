@@ -1,179 +1,86 @@
-dirsearch
-=========
+<img src="static/logo.png#gh-light-mode-only" alt="dirsearch logo (light)" width="675px">
+<img src="static/logo-dark.png#gh-dark-mode-only" alt="dirsearch logo (dark)" width="675px">
 
-Current Release: v0.3.9 (2019.11.26)
+# dirsearch - Web Path Discovery
+
+![Build](https://img.shields.io/badge/Built%20with-Python-Blue)
+![License](https://img.shields.io/badge/license-GNU_General_Public_License-_red.svg)
+![Stars](https://img.shields.io/github/stars/maurosoria/dirsearch.svg)
+[![Release](https://img.shields.io/github/release/maurosoria/dirsearch.svg)](https://github.com/maurosoria/dirsearch/releases)
+[![Sponsors](https://img.shields.io/github/sponsors/maurosoria)](https://github.com/sponsors/maurosoria)
+[![Discord](https://img.shields.io/discord/992276296669339678.svg?logo=discord)](https://discord.gg/2N22ZdAJRj)
+[![Twitter](https://img.shields.io/twitter/follow/_dirsearch?label=Follow)](https://twitter.com/_dirsearch)
 
 
-Overview
---------
-dirsearch is a simple command line tool designed to brute force directories and files in websites.
+> An advanced web path brute-forcer
 
+**dirsearch** is being actively developed by [@maurosoria](https://twitter.com/_maurosoria) and [@shelld3v](https://twitter.com/shells3c_).
 
-Installation & Usage
-------------
+Join the [Discord server](https://discord.gg/2N22ZdAJRj) to communicate with the team.
 
-```
-git clone https://github.com/maurosoria/dirsearch.git
+## Quick Start
+
+dirsearch requires Python 3.11 or higher.
+
+```sh
+git clone https://github.com/maurosoria/dirsearch.git --depth 1
 cd dirsearch
-python3 dirsearch.py -u <URL> -e <EXTENSION>
+python3 dirsearch.py -u https://example.com -e php,html,js
 ```
 
-you can also use this alias to send directly to proxy
-`python3 /path/to/dirsearch/dirsearch.py --http-proxy=localhost:8080`
+You can also install the latest Python stack directly from GitHub with pip:
 
-
-Options
--------
-
-
-```
-Options:
-  -h, --help            show this help message and exit
-
-  Mandatory:
-    -u URL, --url=URL   URL target
-    -L URLLIST, --url-list=URLLIST
-                        URL list target
-    -e EXTENSIONS, --extensions=EXTENSIONS
-                        Extension list separated by comma (Example: php,asp)
-    -E, --extensions-list
-                        Use predefined list of common extensions
-
-  Dictionary Settings:
-    -w WORDLIST, --wordlist=WORDLIST
-    -l, --lowercase
-    -f, --force-extensions
-                        Force extensions for every wordlist entry (like in
-                        DirBuster)
-
-  General Settings:
-    -s DELAY, --delay=DELAY
-                        Delay between requests (float number)
-    -r, --recursive     Bruteforce recursively
-    -R RECURSIVE_LEVEL_MAX, --recursive-level-max=RECURSIVE_LEVEL_MAX
-                        Max recursion level (subdirs) (Default: 1 [only
-                        rootdir + 1 dir])
-    --suppress-empty, --suppress-empty
-    --scan-subdir=SCANSUBDIRS, --scan-subdirs=SCANSUBDIRS
-                        Scan subdirectories of the given -u|--url (separated
-                        by comma)
-    --exclude-subdir=EXCLUDESUBDIRS, --exclude-subdirs=EXCLUDESUBDIRS
-                        Exclude the following subdirectories during recursive
-                        scan (separated by comma)
-    -t THREADSCOUNT, --threads=THREADSCOUNT
-                        Number of Threads
-    -x EXCLUDESTATUSCODES, --exclude-status=EXCLUDESTATUSCODES
-                        Exclude status code, separated by comma (example: 301,
-                        500)
-    --exclude-texts=EXCLUDETEXTS
-                        Exclude responses by texts, separated by comma
-                        (example: "Not found", "Error")
-    --exclude-regexps=EXCLUDEREGEXPS
-                        Exclude responses by regexps, separated by comma
-                        (example: "Not foun[a-z]{1}", "^Error$")
-    -c COOKIE, --cookie=COOKIE
-    --ua=USERAGENT, --user-agent=USERAGENT
-    -F, --follow-redirects
-    -H HEADERS, --header=HEADERS
-                        Headers to add (example: --header "Referer:
-                        example.com" --header "User-Agent: IE"
-    --random-agents, --random-user-agents
-
-  Connection Settings:
-    --timeout=TIMEOUT   Connection timeout
-    --ip=IP             Resolve name to IP address
-    --proxy=HTTPPROXY, --http-proxy=HTTPPROXY
-                        Http Proxy (example: localhost:8080
-    --http-method=HTTPMETHOD
-                        Method to use, default: GET, possible also: HEAD;POST
-    --max-retries=MAXRETRIES
-    -b, --request-by-hostname
-                        By default dirsearch will request by IP for speed.
-                        This forces requests by hostname
-
-  Reports:
-    --simple-report=SIMPLEOUTPUTFILE
-                        Only found paths
-    --plain-text-report=PLAINTEXTOUTPUTFILE
-                        Found paths with status codes
-    --json-report=JSONOUTPUTFILE
-```
-
-
-Operating Systems supported
----------------------------
-- Windows XP/7/8/10
-- GNU/Linux
-- MacOSX
-
-Features
---------
-- Multithreaded
-- Keep alive connections
-- Support for multiple extensions (-e|--extensions asp,php)
-- Reporting (plain text, JSON)
-- Heuristically detects invalid web pages
-- Recursive brute forcing
-- HTTP proxy support
-- User agent randomization
-- Batch processing
-- Request delaying
-
-About wordlists
----------------
-Dictionaries must be text files. Each line will be processed as such, except that the special word %EXT% is used, which will generate one entry for each extension (-e | --extension) passed as an argument.
-
-Example:
-- example/
-- example.%EXT%
-
-Passing the extensions "asp" and "aspx" will generate the following dictionary:
-- example/
-- example.asp
-- example.aspx
-
-You can also use -f | --force-extensions switch to append extensions to every word in the wordlists (like DirBuster).
-
-## Support Docker
-### Install Docker Linux
-Install Docker
 ```sh
-curl -fsSL https://get.docker.com | bash
+pip3 install git+https://github.com/maurosoria/dirsearch.git
+dirsearch -u https://example.com -e php,html,js
 ```
-> To use docker you need superuser power
 
-### Build Image dirsearch
-To create image
+The Rust native backend is opt-in for source installs; see [Installation](docs/installation.md) for the native build steps.
+
+Pre-built PyInstaller binaries and portable folder archives are available on the [Releases page](https://github.com/maurosoria/dirsearch/releases).
+
+## Documentation
+
+The full documentation now lives in [`docs/`](docs/index.md):
+
+- [Installation](docs/installation.md): supported platforms, Python install, release artifacts, and Docker.
+- [Usage Guide](docs/usage.md): common scans, recursion, filters, proxies, raw requests, reports, and tips.
+- [Wordlists](docs/wordlists.md): `%EXT%`, categories, templates, prefixes, suffixes, and transformations.
+- [CLI Options](docs/options.md): complete command-line reference.
+- [Configuration](docs/configuration.md): `config.ini` reference.
+- [Sessions](docs/sessions.md): save, list, and resume scan sessions.
+- [Python API](docs/python-api.md): importable API examples.
+- [Building](docs/building.md): PyInstaller, portable builds, Docker images, and GitHub Actions.
+- [References](docs/references.md): external tutorials and articles.
+
+## Minimal Examples
+
 ```sh
-docker build -t "dirsearch:v0.3.8" .
+python3 dirsearch.py -u https://target
+python3 dirsearch.py -u https://target -e php,html,js
+python3 dirsearch.py -u https://target -e php,html,js -w /path/to/wordlist
+python3 dirsearch.py -u https://target -r --max-recursion-depth 3
 ```
-> **dirsearch** this is name the image and **v0.3.8** is version
 
-### Using dirsearch
-For using
-```sh
-docker run -it --rm "dirsearch:v0.3.8" -u target -e php,html,png,js,jpg
-```
-> target is the site or IP
+Use `python3 dirsearch.py -h` for common options or `python3 dirsearch.py -hh`
+for the complete CLI help.
 
-License
--------
-Copyright (C) Mauro Soria (maurosoria at gmail dot com)
+## Python API
 
-License: GNU General Public License, version 2
+dirsearch can also be used from Python code for local automation, MCP servers,
+REST wrappers, and agent-controlled scans. The importable API keeps its
+configuration in `FuzzerConfig`, so callers do not need to parse CLI flags or
+mutate CLI globals.
 
+See [Python API](docs/python-api.md) for examples covering templates, custom
+wordlists, callbacks, authenticated sessions, and agent-oriented scan recipes.
 
-Contributors
----------
-Special thanks for these people.
+## Contributing
 
-- mzfr
-- Damian89
-- Bo0oM
-- liamosaur
-- redshark1802
-- SUHAR1K
-- FireFart
-- k2l8m11n2
-- vlohacks
-- r0p0s3c
+Pull requests and feature requests are welcome. See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the people who have helped improve dirsearch.
+
+## License
+
+Copyright (C) Mauro Soria (maurosoria@gmail.com)
+
+License: GNU General Public License, version 2.
